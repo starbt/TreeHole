@@ -15,6 +15,7 @@ class TreeHole:
 			date = date.decode('utf-8','ignore')
 			patter = re.compile(r'<a href="http://weibo.com/n/汕大TreeHole"  wb_screen_name="汕大TreeHole">汕大TreeHole</a>：(.*)<br/>')
 			response = re.findall(patter,date)
+			self.weibo = response
 			return response
 	def getNames(self,pages):
 		weibo_name = []
@@ -43,7 +44,14 @@ class TreeHole:
 		# print(len(name_dic))
 		name_dic = sorted(name_dic.items(),key=lambda d:d[1],reverse = True)
 		return name_dic
+	def start(self):
+		count = 0
+		while True:
+			message = self.weibo[count]
+			print(message)
+			input_value = input("请输入回车键查看下一条!")
+			print(input_value)
+			count += 1
 tree_hole = TreeHole()
-tree_hole.getPages(1)
-names = tree_hole.getNames(1)
-print(names)
+message = tree_hole.getPages(1)
+print(message)
